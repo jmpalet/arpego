@@ -1,0 +1,7 @@
+{
+  "name": "arpego",
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "npm install --prefix public"
+  }
+}
