@@ -1,2 +1,1 @@
-web: npm start --prefix public
-api: gunicorn --chdir api api:app
+web: node server.js --prefix public; gunicorn --chdir api api:app
