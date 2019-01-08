@@ -2,6 +2,7 @@
   "name": "arpego",
   "version": "1.0.0",
   "scripts": {
+    "preinstall": "npm install --prefix public",
     "postinstall": "npm run build --prefix public"
   }
 }
