@@ -88,7 +88,6 @@
 <script>
 import axios from 'axios'
 import Tone from 'tone'
-
 export default {
   data () {
     return {
@@ -119,11 +118,10 @@ export default {
         },
         "portamento" : 0.05
       }).toMaster();
-
       synth.triggerAttackRelease(note + scale, "8n");
     },
     getChord (note) {
-      const path = 'http://localhost:5000/api/chord/'
+      const path = 'https://arpego-api.herokuapp.com/api/chord/guitar/'
       axios.get(path + note.replace("#", "s").toLowerCase())
       .then(response => {
         this.chord = response.data

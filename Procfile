@@ -1,1 +1,0 @@
-web: node server.js --prefix public; gunicorn --chdir api api:app
