@@ -9,7 +9,8 @@
     "start-dev": "npm run dev",
     "build": "node build/build.js",
     "postinstall": "npm run build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "webpack -p"
   },
   "dependencies": {
     "axios": "^0.18.0",
