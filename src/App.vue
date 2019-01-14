@@ -21,14 +21,14 @@ export default {
 }
 * { box-sizing:border-box; }
 body{ margin:0; min-width: 610px; }
-ul {
+ul.set {
 	height:18.875em; width:34em;
-  margin:3em auto; padding:3em 0 0 3em; position:relative; 
+  margin:2em auto; padding:3em 0 0 3em; position:relative; 
   border:1px solid #160801; border-radius:1em;
   background: #222;
 }
 li { margin:0; padding:0; list-style:none; position:relative; float:left; }
-ul .white {
+ul.set .white {
 	height:16em; width:4em; z-index:1;
 	border-left:1px solid #bbb;
 	border-bottom:1px solid #bbb;
@@ -36,7 +36,7 @@ ul .white {
 	box-shadow:-1px 0 0 rgba(255,255,255,0.8) inset, 0 0 5px #ccc inset, 0 0 3px rgba(0,0,0,0.2);
 	background: white;
 }
-ul .white:active {
+ul.set .white:active {
 	border-top:1px solid #777;
 	border-left:1px solid #999;
 	border-bottom:1px solid #999;
@@ -55,8 +55,8 @@ ul .white:active {
 	background:linear-gradient(left, #444 0%,#222 100%);
 }
 .d,.e,.g,.a,.b { margin:0 0 0 -1em;  }
-ul li:first-child { border-radius:5px 0 5px 5px; }
-ul li:last-child { border-radius:0 5px 5px 5px; }
+ul.set li:first-child { border-radius:5px 0 5px 5px; }
+ul.set li:last-child { border-radius:0 5px 5px 5px; }
 .chordname {
   font-size: 2rem;
   font-weight: bold;
@@ -110,5 +110,20 @@ ul li:last-child { border-radius:0 5px 5px 5px; }
   border-radius: 50%;
   padding-top: 4px;
   
+}
+.choice-list {
+  margin-bottom: 1em;
+}
+button.choice {
+  outline: none;
+  color: #777;
+  background: transparent;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+button.choice:focus, button.choice:hover {
+  color: #222;
+  border-bottom: 2px solid #222
 }
 </style>

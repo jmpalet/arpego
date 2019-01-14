@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ keyCode }}
     <ul class="set">
       <li class="white c" @click="handler('C', 'C')"></li>
       <li class="black ds" @click="handler('C#', 'Db')"></li>
@@ -15,7 +14,13 @@
       <li class="black bs" @click="handler('A#', 'Bb')"></li>
       <li class="white b" @click="handler('B', 'B')"></li>
     </ul>
-    <div class="diagram-wrap">
+
+    <div class="choice-list">
+      <button class="choice" v-on:click="changeInstrument('guitar')">Guitar</button>
+      <button class="choice" v-on:click="changeInstrument('ukulele')">Ukulele</button>
+    </div>
+
+    <div class="diagram-wrap" v-show="instrument=='guitar'">
         <div class="diagram">
           <div class="strings">
             <div class="row first">
@@ -82,6 +87,54 @@
           <h3 class="chordname">{{ chordName }}</h3>                          
         </div>
     </div>
+
+    <div class="diagram-wrap" v-show="instrument=='ukulele'">
+        <div class="diagram">
+          <div class="strings">
+            <div class="row first">
+              <div class="cell fret"><div class="note" v-show="showNote(1,1)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(2,1)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(3,1)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(4,1)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(5,1)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(6,1)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(7,1)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(8,1)"></div></div>
+            </div>
+            <div class="row">
+              <div class="cell fret"><div class="note" v-show="showNote(1,2)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(2,2)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(3,2)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(4,2)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(5,2)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(6,2)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(7,2)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(8,2)"></div></div>
+            </div>
+            <div class="row">
+              <div class="cell fret"><div class="note" v-show="showNote(1,3)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(2,3)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(3,3)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(4,3)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(5,3)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(6,3)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(7,3)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(8,3)"></div></div>
+            </div>
+            <div class="row last">
+              <div class="cell fret"><div class="note" v-show="showNote(1,4)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(2,4)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(3,4)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(4,4)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(5,4)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(6,4)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(7,4)"></div></div>
+              <div class="cell fret"><div class="note" v-show="showNote(8,4)"></div></div>
+            </div>
+          </div>
+          <h3 class="chordname">{{ chordName }}</h3>                          
+        </div>
+    </div>
   </div>
 </template>
 
@@ -91,6 +144,8 @@ import Tone from 'tone'
 export default {
   data () {
     return {
+      instrument: 'guitar',
+      note: null,
       chord: [],
       chordName: null,
       keyCode: '',
@@ -98,9 +153,14 @@ export default {
   },
   methods: {
     handler (name, note, scale = 4) {
-      this.playTone(note, scale);
-      this.getChord(note);
-      this.chordName = name;
+      this.playTone(note, scale)
+      this.getChord(note)
+      this.note = note
+      this.chordName = name
+    },
+    changeInstrument (instrument) {
+      this.instrument = instrument
+      this.getChord(this.note)
     },
     playTone (note, scale) {
       var synth = new Tone.Synth({
@@ -121,7 +181,10 @@ export default {
       synth.triggerAttackRelease(note + scale, "8n");
     },
     getChord (note) {
-      const path = 'https://arpego-api.herokuapp.com/api/chord/guitar/'
+      if (note === null) {
+        return false
+      }
+      const path = 'https://arpego-api.herokuapp.com/api/chord/' + this.instrument + '/'
       axios.get(path + note.replace("#", "s").toLowerCase())
       .then(response => {
         this.chord = response.data
