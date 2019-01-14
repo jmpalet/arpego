@@ -16,8 +16,8 @@
     </ul>
 
     <div class="choice-list">
-      <button class="choice" v-on:click="changeInstrument('guitar')">Guitar</button>
-      <button class="choice" v-on:click="changeInstrument('ukulele')">Ukulele</button>
+      <button class="choice" v-bind:class="{ active: this.instrument === 'guitar' }" v-on:click="changeInstrument('guitar')">Guitar</button>
+      <button class="choice" v-bind:class="{ active: this.instrument === 'ukulele' }" v-on:click="changeInstrument('ukulele')">Ukulele</button>
     </div>
 
     <div class="diagram-wrap" v-show="instrument=='guitar'">

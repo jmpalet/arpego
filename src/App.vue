@@ -122,7 +122,7 @@ button.choice {
   text-transform: uppercase;
   font-weight: bold;
 }
-button.choice:focus, button.choice:hover {
+button.choice.active, button.choice:hover {
   color: #222;
   border-bottom: 2px solid #222
 }
